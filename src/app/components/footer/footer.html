@@ -1,0 +1,63 @@
+<footer>
+    <div class="f-grid">
+
+        <div class="f-brand">
+            <div class="f-logo">JTJ <span>Creations</span></div>
+            <p class="f-tagline">
+                Memories are the only things that don't change when everything else does.
+                Let's capture yours — forever.
+            </p>
+            <div class="f-soc">
+                @for (s of socials; track s.label) {
+                <a [href]="s.url" [title]="s.title"
+                    [style.font-style]="s.italic ? 'italic' : 'normal'"
+                    target="_blank" rel="noopener">{{ s.label }}</a>
+                }
+            </div>
+        </div>
+
+        <div>
+            <div class="f-head">Navigation</div>
+            <ul class="f-ul">
+                <li><a routerLink="/">Home</a></li>
+                <li><a routerLink="/portfolio">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <div class="f-head">Services</div>
+            <ul class="f-ul">
+                @for (svc of services; track svc) {
+                <li><a routerLink="/portfolio">{{ svc }}</a></li>
+                }
+            </ul>
+        </div>
+
+        <div>
+            <div class="f-head">Contact</div>
+            <div class="f-contact-list">
+                <div class="f-contact-item">
+                    <span class="f-contact-lbl">Phone</span>
+                    <a href="tel:+917594875686">+91 7594 875686</a>
+                </div>
+                <div class="f-contact-item">
+                    <span class="f-contact-lbl">Email</span>
+                    <a href="mailto:jtjcreations2020@gmail.com">jtjcreations2020&#64;gmail.com</a>
+                </div>
+                <div class="f-contact-item">
+                    <span class="f-contact-lbl">Location</span>
+                    <span>Kollam, Kerala, India</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="f-bottom">
+        <p class="f-copy">© {{ year }} <span>JTJ Creations</span>. All Rights Reserved.</p>
+        <p class="f-copy">Crafted with <span>✦</span> in Kollam, Kerala</p>
+    </div>
+</footer>

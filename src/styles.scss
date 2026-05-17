@@ -1,1 +1,150 @@
-/* You can add global styles to this file, and also import other style files */
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@200;300;400;500&display=swap');
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── CSS Variables ── */
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dim: rgba(201, 168, 76, 0.12);
+  --gold-border: rgba(201, 168, 76, 0.25);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+/* ── DARK THEME ── */
+[data-theme='dark'] {
+  --bg: #080808;
+  --bg2: #111111;
+  --surface: #161616;
+  --surface2: #1e1e1e;
+  --border: rgba(255, 255, 255, 0.07);
+  --text: #f0ebe0;
+  --text-muted: rgba(240, 235, 224, 0.45);
+  --text-soft: rgba(240, 235, 224, 0.7);
+  --nav-bg: rgba(8, 8, 8, 0.93);
+  --shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  --card-bg: #161616;
+  --input-bg: #1a1a1a;
+  --footer-bg: #0d0d0d;
+  --toggle-track: #2a2a2a;
+  --toggle-knob: #f0ebe0;
+}
+
+/* ── LIGHT THEME ── */
+[data-theme='light'] {
+  --bg: #faf8f4;
+  --bg2: #f0ece3;
+  --surface: #ffffff;
+  --surface2: #f5f0e8;
+  --border: rgba(0, 0, 0, 0.09);
+  --text: #1a1612;
+  --text-muted: rgba(26, 22, 18, 0.52);
+  --text-soft: rgba(26, 22, 18, 0.76);
+  --nav-bg: rgba(250, 248, 244, 0.95);
+  --shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+  --card-bg: #ffffff;
+  --input-bg: #f0ece3;
+  --footer-bg: #17130e;
+  --toggle-track: #ddd7c9;
+  --toggle-knob: #1a1612;
+}
+
+/* ── Base ── */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 2px;
+}
+
+/* ── Shared section padding ── */
+.section {
+  padding: clamp(70px, 10vw, 130px) clamp(22px, 5vw, 60px);
+}
+
+/* ── Shared reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &.d1 {
+    transition-delay: 0.1s;
+  }
+
+  &.d2 {
+    transition-delay: 0.2s;
+  }
+
+  &.d3 {
+    transition-delay: 0.3s;
+  }
+
+  &.d4 {
+    transition-delay: 0.4s;
+  }
+}
+
+/* ── View Transitions API ── */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+::view-transition-old(root) {
+  animation: 240ms ease fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 320ms ease fade-in;
+}
+
+/* ── Cursor (Desktop only) ── */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+}

@@ -1,0 +1,53 @@
+<section class="hero" id="home">
+    <!-- Slides -->
+    <div class="hero-slides">
+        @for (slide of slides; track slide.bg; let i = $index) {
+        <div
+            class="hero-slide"
+            [class.active]="currentSlide() === i"
+            [style.background-image]="'url(' + slide.bg + ')'">
+        </div>
+        }
+    </div>
+
+    <!-- Content -->
+    <div class="hero-content">
+        <div class="hero-left">
+            <div class="hero-eyebrow">Photography Studio · Kollam, Kerala</div>
+            <h1 class="hero-title">
+                Capturing<br>
+                <em>Moments</em><br>
+                That Last
+            </h1>
+            <div class="hero-btns">
+                <a routerLink="/portfolio" class="btn-gold">View Portfolio</a>
+                <a href="#contact" class="btn-ghost">Book a Session</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            @for (stat of stats; track stat.label) {
+            <div class="h-stat">
+                <div class="h-stat-num">{{ stat.num }}</div>
+                <div class="h-stat-label">{{ stat.label }}</div>
+            </div>
+            }
+        </div>
+    </div>
+
+    <!-- Dots -->
+    <div class="hero-dots">
+        @for (slide of slides; track slide.bg; let i = $index) {
+        <div
+            class="h-dot"
+            [class.active]="currentSlide() === i"
+            (click)="goToSlide(i)">
+        </div>
+        }
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+    </div>
+</section>

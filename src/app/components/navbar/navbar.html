@@ -1,0 +1,39 @@
+<!-- Mobile Drawer -->
+<div class="mob-nav" [class.open]="mobileOpen()">
+    <a routerLink="/" (click)="closeMobile()">Home</a>
+    <a routerLink="/portfolio" (click)="closeMobile()">Portfolio</a>
+    <a href="#about" (click)="closeMobile()">About</a>
+    <a href="#services" (click)="closeMobile()">Services</a>
+    <a href="#contact" (click)="closeMobile()">Contact</a>
+    <div class="mob-foot">
+        <button class="theme-toggle" (click)="toggleTheme()" aria-label="Toggle theme">
+            <span class="t-icon t-sun">☀</span>
+            <span class="t-icon t-moon">☽</span>
+        </button>
+        <a href="#contact" class="btn-gold" (click)="closeMobile()">Book a Session</a>
+    </div>
+</div>
+
+<!-- Main Nav -->
+<nav [class.scrolled]="scrolled()">
+    <a routerLink="/" class="nav-logo">JTJ <span>Creations</span></a>
+
+    <ul class="nav-links">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+        <li><a routerLink="/portfolio" routerLinkActive="active">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+        <button class="theme-toggle" (click)="toggleTheme()" aria-label="Toggle theme">
+            <span class="t-icon t-sun">☀</span>
+            <span class="t-icon t-moon">☽</span>
+        </button>
+        <a href="#contact" class="nav-book">Book a Session</a>
+        <button class="hamburger" [class.open]="mobileOpen()" (click)="toggleMobile()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>

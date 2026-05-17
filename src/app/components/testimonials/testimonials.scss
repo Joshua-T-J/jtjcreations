@@ -1,0 +1,122 @@
+.t-section {
+    background: var(--bg);
+    text-align: center;
+}
+
+.s-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    &::before {
+        content: '';
+        width: 26px;
+        height: 1px;
+        background: var(--gold);
+    }
+
+    &.centered {
+        justify-content: center;
+    }
+}
+
+.s-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 4.5vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.06;
+    color: var(--text);
+
+    em {
+        font-style: italic;
+        color: var(--gold);
+    }
+
+    &.centered {
+        text-align: center;
+    }
+}
+
+.t-inner {
+    max-width: 770px;
+    margin: 52px auto 0;
+}
+
+.t-slide {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.q-mark {
+    font-family: var(--font-display);
+    font-size: 7rem;
+    line-height: 0.5;
+    color: var(--gold);
+    opacity: 0.2;
+    display: block;
+    margin-bottom: 18px;
+}
+
+.t-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 30px;
+}
+
+.t-author {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+.t-role {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+.t-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 40px;
+}
+
+.td {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &.active {
+        background: var(--gold);
+        width: 22px;
+        border-radius: 3px;
+    }
+}
+
+@media (max-width: 640px) {
+    .t-text {
+        font-size: 1.1rem;
+    }
+
+    .q-mark {
+        font-size: 5rem;
+    }
+}

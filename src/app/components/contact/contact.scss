@@ -1,0 +1,233 @@
+.contact-section {
+    background: var(--bg2);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 8vw, 100px);
+    align-items: start;
+}
+
+.s-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+
+    &::before {
+        content: '';
+        width: 26px;
+        height: 1px;
+        background: var(--gold);
+    }
+}
+
+.s-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 4.5vw, 4.2rem);
+    font-weight: 300;
+    line-height: 1.06;
+    color: var(--text);
+
+    em {
+        font-style: italic;
+        color: var(--gold);
+    }
+}
+
+.c-intro {
+    font-size: clamp(0.87rem, 1.4vw, 1rem);
+    line-height: 1.9;
+    color: var(--text-muted);
+    margin: 22px 0 42px;
+}
+
+.c-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.c-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border: 1px solid var(--gold-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: var(--gold);
+}
+
+.c-lbl {
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3px;
+}
+
+.c-val {
+    font-size: 0.9rem;
+    color: var(--text);
+
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            color: var(--gold);
+        }
+    }
+}
+
+.soc-row {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin-top: 38px;
+}
+
+.soc {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--gold-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+    transition: all 0.3s;
+
+    &:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+        background: var(--gold-dim);
+    }
+}
+
+/* Form */
+.fg {
+    margin-bottom: 18px;
+}
+
+.fg label {
+    display: block;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 7px;
+}
+
+.fg input,
+.fg select,
+.fg textarea {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-bottom-color: var(--gold-border);
+    color: var(--text);
+    padding: 12px 15px;
+    font-family: var(--font-body);
+    font-size: 0.87rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s, background 0.4s;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &::placeholder {
+        color: var(--text-muted);
+    }
+
+    &:focus {
+        border-color: var(--gold);
+    }
+}
+
+.fg select option {
+    background: var(--input-bg);
+    color: var(--text);
+}
+
+.fg textarea {
+    resize: none;
+    height: 118px;
+}
+
+.f-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 13px;
+}
+
+.btn-send {
+    width: 100%;
+    background: var(--gold);
+    color: #080808;
+    border: none;
+    padding: 14px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 8px;
+    transition: all 0.3s;
+
+    &:hover {
+        background: var(--gold-light);
+        transform: translateY(-2px);
+    }
+}
+
+.f-success {
+    text-align: center;
+    padding: 60px 32px;
+    border: 1px solid var(--gold-border);
+}
+
+.f-s-icon {
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 14px;
+}
+
+.f-s-msg {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text);
+}
+
+.f-s-sub {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 52px;
+    }
+}
+
+@media (max-width: 640px) {
+    .f-row {
+        grid-template-columns: 1fr;
+    }
+}

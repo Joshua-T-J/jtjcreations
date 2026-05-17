@@ -1,0 +1,32 @@
+<section id="gallery" class="section gallery-section">
+    <div class="gallery-head">
+        <div>
+            <div class="s-label">Our Portfolio</div>
+            <h2 class="s-title">Recent <em>Works</em></h2>
+        </div>
+    </div>
+
+    <div class="masonry">
+        @for (item of items; track item.id) {
+        <div class="g-item" (click)="openLightbox(item)">
+            <img [src]="item.src" [alt]="item.title" loading="lazy">
+            <div class="g-ov">
+                <span class="g-label">{{ item.title }}</span>
+                <span class="g-cat">{{ item.category }}</span>
+            </div>
+        </div>
+        }
+    </div>
+
+    <div class="gallery-cta">
+        <a routerLink="/portfolio" class="btn-outline">View Full Portfolio →</a>
+    </div>
+</section>
+
+<!-- Lightbox -->
+@if (lightboxSrc()) {
+<div class="lightbox open" (click)="closeLightbox()">
+    <button class="lb-close" (click)="closeLightbox()" aria-label="Close">✕</button>
+    <img [src]="lightboxSrc()!" [alt]="lightboxAlt()" (click)="$event.stopPropagation()">
+</div>
+}

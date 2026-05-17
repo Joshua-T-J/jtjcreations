@@ -1,0 +1,116 @@
+<div class="portfolio-page" (keydown)="onKeydown($event)" tabindex="-1">
+
+    <!-- Hero Banner -->
+    <div class="portfolio-hero">
+        <div class="portfolio-hero-bg"></div>
+        <div class="portfolio-hero-content">
+            <div class="breadcrumb">
+                <a routerLink="/">Home</a>
+                <span class="bc-sep">→</span>
+                <span>Portfolio</span>
+            </div>
+            <div class="ph-label">Our Creative Work</div>
+            <h1 class="ph-title">Full <em>Portfolio</em></h1>
+            <p class="ph-sub">
+                Every frame tells a story. Browse through our complete collection of
+                weddings, events, portraits, and nature photography.
+            </p>
+        </div>
+        <div class="ph-stats">
+            <div class="ph-stat"><span class="ph-stat-n">18+</span><span class="ph-stat-l">Gallery Pieces</span></div>
+            <div class="ph-stat"><span class="ph-stat-n">300+</span><span class="ph-stat-l">Events Shot</span></div>
+            <div class="ph-stat"><span class="ph-stat-n">5+</span><span class="ph-stat-l">Years Active</span></div>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <div class="filter-inner">
+            <div class="filter-left">
+                <span class="filter-label">Filter by:</span>
+                <div class="filter-btns">
+                    @for (cat of categories; track cat.key) {
+                    <button
+                        class="f-btn"
+                        [class.active]="activeCategory === cat.key"
+                        (click)="setCategory(cat.key)">
+                        {{ cat.label }}
+                        <span class="f-count">{{ cat.count }}</span>
+                    </button>
+                    }
+                </div>
+            </div>
+            <div class="filter-right">
+                <span class="item-count">{{ items.length }} photos</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-section">
+        <div class="masonry-grid" id="portfolioGrid">
+            @for (item of items; track trackById($index, item)) {
+            <div
+                class="g-item"
+                [attr.data-cat]="item.category"
+                (click)="openLightbox(item)">
+                <img [src]="item.src" [alt]="item.title" loading="lazy">
+                <div class="g-overlay">
+                    <div class="g-overlay-content">
+                        <span class="g-cat-badge">{{ item.category }}</span>
+                        <span class="g-title">{{ item.title }}</span>
+                        @if (item.description) {
+                        <span class="g-desc">{{ item.description }}</span>
+                        }
+                        <span class="g-zoom">⊕ View</span>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+        @if (items.length === 0) {
+        <div class="empty-state">
+            <span class="empty-icon">📷</span>
+            <p>No photos in this category yet.</p>
+        </div>
+        }
+    </div>
+
+    <!-- CTA Strip -->
+    <div class="cta-strip">
+        <div class="cta-inner">
+            <div>
+                <h2 class="cta-title">Ready to Create <em>Your Story?</em></h2>
+                <p class="cta-sub">Let's capture your most precious moments together.</p>
+            </div>
+            <a href="/#contact" class="btn-gold">Book a Session →</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- Lightbox -->
+@if (lightboxItem()) {
+<div class="lightbox" (click)="closeLightbox()">
+    <button class="lb-close" (click)="closeLightbox()" aria-label="Close">✕</button>
+
+    <button class="lb-prev" (click)="$event.stopPropagation(); prevItem()" aria-label="Previous">‹</button>
+
+    <div class="lb-content" (click)="$event.stopPropagation()">
+        <img [src]="lightboxItem()!.src" [alt]="lightboxItem()!.title">
+        <div class="lb-info">
+            <span class="lb-cat">{{ lightboxItem()!.category }}</span>
+            <h3 class="lb-title">{{ lightboxItem()!.title }}</h3>
+            @if (lightboxItem()!.description) {
+            <p class="lb-desc">{{ lightboxItem()!.description }}</p>
+            }
+            <span class="lb-counter">
+                {{ lightboxIndex() + 1 }} / {{ items.length }}
+            </span>
+        </div>
+    </div>
+
+    <button class="lb-next" (click)="$event.stopPropagation(); nextItem()" aria-label="Next">›</button>
+</div>
+}

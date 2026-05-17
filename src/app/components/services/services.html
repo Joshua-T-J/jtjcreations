@@ -1,0 +1,20 @@
+<section id="services" class="section services-section">
+    <div class="services-head">
+        <div>
+            <div class="s-label">What We Offer</div>
+            <h2 class="s-title">Our <em>Services</em></h2>
+        </div>
+        <a href="#contact" class="btn-outline">Book Now →</a>
+    </div>
+
+    <div class="services-grid">
+        @for (svc of services; track svc.num) {
+        <div class="svc-card">
+            <div class="svc-num">{{ svc.num }}</div>
+            <div class="svc-icon">{{ svc.icon }}</div>
+            <div class="svc-name">{{ svc.name }}</div>
+            <p class="svc-desc">{{ svc.desc }}</p>
+        </div>
+        }
+    </div>
+</section>

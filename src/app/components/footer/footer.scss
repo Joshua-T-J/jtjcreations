@@ -1,0 +1,159 @@
+footer {
+    background: var(--footer-bg);
+    color: rgba(240, 235, 224, 0.5);
+    padding: clamp(48px, 7vw, 80px) clamp(22px, 5vw, 60px) clamp(28px, 4vw, 44px);
+    transition: background 0.4s;
+}
+
+.f-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: clamp(30px, 5vw, 60px);
+    margin-bottom: 48px;
+}
+
+.f-logo {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: #f0ebe0;
+    margin-bottom: 12px;
+
+    span {
+        color: var(--gold);
+    }
+}
+
+.f-tagline {
+    font-size: 0.84rem;
+    line-height: 1.85;
+    max-width: 240px;
+    margin-bottom: 22px;
+}
+
+.f-head {
+    font-size: 0.63rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+}
+
+.f-ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+    a {
+        color: rgba(240, 235, 224, 0.48);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+
+        &::before {
+            content: '—';
+            font-size: 0.52rem;
+            color: var(--gold);
+        }
+
+        &:hover {
+            color: var(--gold);
+        }
+    }
+}
+
+.f-soc {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    a {
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(240, 235, 224, 0.14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: rgba(240, 235, 224, 0.42);
+        font-size: 0.7rem;
+        transition: all 0.3s;
+
+        &:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+    }
+}
+
+.f-contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.f-contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.f-contact-lbl {
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+}
+
+.f-contact-item a,
+.f-contact-item span {
+    color: rgba(240, 235, 224, 0.48);
+    font-size: 0.84rem;
+    text-decoration: none;
+    word-break: break-all;
+
+    &:hover {
+        color: var(--gold);
+    }
+}
+
+.f-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 26px;
+    border-top: 1px solid rgba(240, 235, 224, 0.06);
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.f-copy {
+    font-size: 0.74rem;
+
+    span {
+        color: var(--gold);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .f-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+}
+
+@media (max-width: 640px) {
+    .f-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .f-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+}

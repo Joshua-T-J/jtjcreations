@@ -1,0 +1,20 @@
+<section id="testimonials" class="section t-section">
+    <div class="s-label centered">Client Stories</div>
+    <h2 class="s-title centered">Words of <em>Happy Clients</em></h2>
+
+    <div class="t-inner">
+        @for (t of testimonials; track t.author; let i = $index) {
+        <div class="t-slide" [class.active]="current() === i">
+            <span class="q-mark">"</span>
+            <p class="t-text">{{ t.text }}</p>
+            <div class="t-author">{{ t.author }}</div>
+            <div class="t-role">{{ t.role }}</div>
+        </div>
+        }
+        <div class="t-dots">
+            @for (t of testimonials; track t.author; let i = $index) {
+            <div class="td" [class.active]="current() === i" (click)="goTo(i)"></div>
+            }
+        </div>
+    </div>
+</section>

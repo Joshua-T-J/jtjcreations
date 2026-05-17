@@ -1,0 +1,39 @@
+ @media (hover: hover) and (pointer: fine) {
+     :host {
+         pointer-events: none;
+     }
+
+     .cursor {
+         position: fixed;
+         width: 7px;
+         height: 7px;
+         background: var(--gold);
+         border-radius: 50%;
+         pointer-events: none;
+         z-index: 9999;
+         transform: translate(-50%, -50%);
+         mix-blend-mode: difference;
+         transition: width .2s, height .2s;
+     }
+
+     .cursor-ring {
+         position: fixed;
+         width: 34px;
+         height: 34px;
+         border: 1px solid var(--gold);
+         border-radius: 50%;
+         pointer-events: none;
+         z-index: 9998;
+         transform: translate(-50%, -50%);
+         transition: all 0.12s ease;
+         opacity: 0.5;
+     }
+ }
+
+ @media not all and (hover: hover) and (pointer: fine) {
+
+     .cursor,
+     .cursor-ring {
+         display: none;
+     }
+ }

@@ -1,0 +1,93 @@
+<section id="contact" class="section contact-section">
+    <div class="contact-grid">
+
+        <!-- Info -->
+        <div class="contact-info">
+            <div class="s-label">Get In Touch</div>
+            <h2 class="s-title">Let's <em>Create</em><br>Together</h2>
+            <p class="c-intro">
+                Ready to preserve your special moments forever? Reach out and let's talk about
+                your event — we'd love to capture your story.
+            </p>
+
+            <div class="c-row">
+                <div class="c-icon">📍</div>
+                <div>
+                    <div class="c-lbl">Location</div>
+                    <div class="c-val">Pandithitta Thalavoor, Kollam, Kerala</div>
+                </div>
+            </div>
+            <div class="c-row">
+                <div class="c-icon">📞</div>
+                <div>
+                    <div class="c-lbl">Phone</div>
+                    <div class="c-val">
+                        <a href="tel:+917594875686">+91 7594 875686</a>&ensp;·&ensp;
+                        <a href="tel:+918921233481">+91 8921 233481</a>
+                    </div>
+                </div>
+            </div>
+            <div class="c-row">
+                <div class="c-icon">✉️</div>
+                <div>
+                    <div class="c-lbl">Email</div>
+                    <div class="c-val">
+                        <a href="mailto:jtjcreations2020@gmail.com">jtjcreations2020&#64;gmail.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="soc-row">
+                @for (s of socials; track s.label) {
+                <a [href]="s.url" class="soc" [title]="s.title"
+                    [style.font-style]="s.italic ? 'italic' : 'normal'"
+                    target="_blank" rel="noopener">{{ s.label }}</a>
+                }
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="form-wrap">
+            @if (!submitted()) {
+            <form (ngSubmit)="submit()" #contactForm="ngForm">
+                <div class="f-row">
+                    <div class="fg">
+                        <label>Full Name *</label>
+                        <input type="text" [(ngModel)]="form.name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="fg">
+                        <label>Mobile No *</label>
+                        <input type="tel" [(ngModel)]="form.phone" name="phone" placeholder="+91 XXXXX XXXXX" required>
+                    </div>
+                </div>
+                <div class="fg">
+                    <label>Email Address *</label>
+                    <input type="email" [(ngModel)]="form.email" name="email" placeholder="your&#64;email.com" required>
+                </div>
+                <div class="fg">
+                    <label>Service Required</label>
+                    <select [(ngModel)]="form.service" name="service">
+                        <option value="">— Select a Service —</option>
+                        @for (svc of services; track svc) {
+                        <option [value]="svc">{{ svc }}</option>
+                        }
+                    </select>
+                </div>
+                <div class="fg">
+                    <label>Your Message</label>
+                    <textarea [(ngModel)]="form.message" name="message"
+                        placeholder="Tell us about your event, date, location, and special requirements..."></textarea>
+                </div>
+                <button type="submit" class="btn-send">Send Message →</button>
+            </form>
+            } @else {
+            <div class="f-success">
+                <div class="f-s-icon">✦</div>
+                <div class="f-s-msg">Message Received!</div>
+                <p class="f-s-sub">Thank you for reaching out. We'll be in touch within 24 hours.</p>
+            </div>
+            }
+        </div>
+
+    </div>
+</section>

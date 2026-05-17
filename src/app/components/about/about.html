@@ -1,0 +1,44 @@
+<section id="about" class="section about-section">
+    <div class="about-grid">
+
+        <!-- Image Side -->
+        <div class="about-img-wrap reveal" #revealEl>
+            <div class="about-frame"></div>
+            <img
+                class="about-img"
+                src="https://jtjcreations.netlify.app/img/about.jpg"
+                alt="JTJ Creations — photographer at work"
+                loading="lazy">
+            <div class="about-badge">
+                <div class="about-badge-n">5+</div>
+                <div class="about-badge-l">Years of Passion</div>
+            </div>
+        </div>
+
+        <!-- Text Side -->
+        <div class="about-text">
+            <div class="s-label reveal" #revealEl>Our Story</div>
+            <h2 class="s-title reveal d1" #revealEl>
+                We Don't Just Take Photos,<br>We <em>Tell Stories</em>
+            </h2>
+            <div class="divider reveal d2" #revealEl></div>
+            <p class="about-body reveal d2" #revealEl>
+                We are JTJ Creations — a photography firm born from passion, rooted in Kollam,
+                Kerala. Every moment you live is a first-time experience. A photograph keeps those
+                moments from running away. We capture your beautiful memories so you can re-live
+                them again and again.
+            </p>
+            <p class="about-body reveal d2" #revealEl style="margin-top:-16px">
+                For us, photography will never be a profession — it's always a passion demanding
+                extraordinary skill, relentless dedication, and a sincere love for the craft.
+            </p>
+            <a href="#contact" class="btn-gold reveal d3" #revealEl>Work With Us</a>
+            <div class="tools reveal d4" #revealEl>
+                @for (tool of tools; track tool) {
+                <span class="tool-pill">{{ tool }}</span>
+                }
+            </div>
+        </div>
+
+    </div>
+</section>

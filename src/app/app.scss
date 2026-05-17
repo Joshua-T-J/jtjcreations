@@ -1,0 +1,45 @@
+  :host {
+      display: block;
+  }
+
+  main {
+      display: block;
+  }
+
+  .back-top {
+      position: fixed;
+      bottom: 34px;
+      right: 34px;
+      width: 44px;
+      height: 44px;
+      background: var(--gold);
+      border: none;
+      color: #080808;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 50;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: all 0.35s;
+  }
+
+  .back-top.show {
+      opacity: 1;
+      transform: translateY(0);
+  }
+
+  .back-top:hover {
+      background: var(--gold-light);
+  }
+
+  @media (max-width: 640px) {
+      .back-top {
+          right: 16px;
+          bottom: 16px;
+          width: 40px;
+          height: 40px;
+      }
+  }

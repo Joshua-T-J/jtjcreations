@@ -11,7 +11,7 @@
                 @for (s of socials; track s.label) {
                 <a [href]="s.url" [title]="s.title"
                     [style.font-style]="s.italic ? 'italic' : 'normal'"
-                    target="_blank" rel="noopener">{{ s.label }}</a>
+                    target="_blank" rel="noopener"><i [class]="s.icon"></i></a>
                 }
             </div>
         </div>

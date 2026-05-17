@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 export type ThemeType = 'dark' | 'light';
 
@@ -6,7 +6,9 @@ export type ThemeType = 'dark' | 'light';
   providedIn: 'root',
 })
 export class Theme {
-  readonly theme = signal<ThemeType>('dark');
+  private readonly theme = signal<ThemeType>('dark');
+  readonly Theme = computed(() => this.theme());
+  readonly isDark = computed(() => this.theme() === 'dark');
 
   init(): void {
     const saved = localStorage.getItem('jtj-theme') as ThemeType | null;
@@ -23,9 +25,5 @@ export class Theme {
   private applyTheme(theme: ThemeType): void {
     this.theme.set(theme);
     document.documentElement.setAttribute('data-theme', theme);
-  }
-
-  get isDark(): boolean {
-    return this.theme() === 'dark';
   }
 }

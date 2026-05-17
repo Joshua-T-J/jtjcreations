@@ -38,22 +38,30 @@ export class Contact {
   readonly socials = [
     {
       label: 'f',
+      icon: 'bi bi-facebook',
       title: 'Facebook',
       url: 'https://www.facebook.com/profile.php?id=100076379604525',
     },
     {
       label: 'ig',
+      icon: 'bi bi-instagram',
       title: 'Instagram',
       url: 'https://www.instagram.com/jtjcreations_',
       italic: true,
     },
-    { label: 'wa', title: 'WhatsApp', url: 'https://wa.me/917594906242' },
+    { label: 'wa', icon: 'bi bi-whatsapp', title: 'WhatsApp', url: 'https://wa.me/917594906242' },
     {
       label: 'yt',
+      icon: 'bi bi-youtube',
       title: 'YouTube',
       url: 'https://www.youtube.com/channel/UCSGZLWjrl5dWbQuM_GJ0-9g',
     },
-    { label: '@', title: 'Email', url: 'mailto:jtjcreations2020@gmail.com' },
+    {
+      label: '@',
+      icon: 'bi bi-envelope',
+      title: 'Email',
+      url: 'mailto:jtjcreations2020@gmail.com',
+    },
   ];
 
   submit(): void {

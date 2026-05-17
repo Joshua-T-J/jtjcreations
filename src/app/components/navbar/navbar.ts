@@ -1,17 +1,20 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
+import { Component, computed, DOCUMENT, HostListener, inject, signal } from '@angular/core';
 import { Theme } from '../../shared/services/theme';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
 export class Navbar {
   readonly themeService = inject(Theme);
+  private readonly document = inject(DOCUMENT);
+
   readonly scrolled = signal(false);
   readonly mobileOpen = signal(false);
+  readonly isDark = computed(() => this.themeService.isDark());
 
   @HostListener('window:scroll')
   onScroll(): void {
@@ -33,7 +36,10 @@ export class Navbar {
     document.body.style.overflow = '';
   }
 
-  get isDark(): boolean {
-    return this.themeService.isDark;
+  scrollToFragment(fragment: string): void {
+    const el = this.document.getElementById(fragment);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }

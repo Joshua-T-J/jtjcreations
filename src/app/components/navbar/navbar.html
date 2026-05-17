@@ -2,13 +2,12 @@
 <div class="mob-nav" [class.open]="mobileOpen()">
     <a routerLink="/" (click)="closeMobile()">Home</a>
     <a routerLink="/portfolio" (click)="closeMobile()">Portfolio</a>
-    <a href="#about" (click)="closeMobile()">About</a>
+    <a routerLink="/" fragment="about" (click)="closeMobile()">About</a>
     <a href="#services" (click)="closeMobile()">Services</a>
     <a href="#contact" (click)="closeMobile()">Contact</a>
     <div class="mob-foot">
         <button class="theme-toggle" (click)="toggleTheme()" aria-label="Toggle theme">
-            <span class="t-icon t-sun">☀</span>
-            <span class="t-icon t-moon">☽</span>
+            <i class="bi" [class]="isDark() ? 'bi-brightness-high' : 'bi-moon'"></i>
         </button>
         <a href="#contact" class="btn-gold" (click)="closeMobile()">Book a Session</a>
     </div>
@@ -16,22 +15,21 @@
 
 <!-- Main Nav -->
 <nav [class.scrolled]="scrolled()">
-    <a routerLink="/" class="nav-logo">JTJ <span>Creations</span></a>
+    <a routerLink="/" (click)="scrollToFragment('home')" class="nav-logo">JTJ <span>Creations</span></a>
 
     <ul class="nav-links">
-        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="scrollToFragment('home')">Home</a></li>
         <li><a routerLink="/portfolio" routerLinkActive="active">Portfolio</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a routerLink="/" fragment="about" (click)="scrollToFragment('about')">About</a></li>
+        <li><a routerLink="/" fragment="services" (click)="scrollToFragment('services')">Services</a></li>
+        <li><a routerLink="/" fragment="contact" (click)="scrollToFragment('contact')">Contact</a></li>
     </ul>
 
     <div class="nav-right">
         <button class="theme-toggle" (click)="toggleTheme()" aria-label="Toggle theme">
-            <span class="t-icon t-sun">☀</span>
-            <span class="t-icon t-moon">☽</span>
+            <i class="bi" [class]="isDark() ? 'bi-brightness-high' : 'bi-moon'"></i>
         </button>
-        <a href="#contact" class="nav-book">Book a Session</a>
+        <a routerLink="/" fragment="contact" class="nav-book" (click)="scrollToFragment('contact')">Book a Session</a>
         <button class="hamburger" [class.open]="mobileOpen()" (click)="toggleMobile()" aria-label="Menu">
             <span></span><span></span><span></span>
         </button>

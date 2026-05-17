@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, inject, signal } from '@angular/core';
 import { GalleryItem, GalleryCategory } from '../../shared/models/gallery';
 import { Gallery } from '../../shared/services/gallery';
 import { RouterLink } from '@angular/router';
@@ -15,7 +15,7 @@ interface CategoryOption {
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.scss',
 })
-export class Portfolio {
+export class Portfolio implements AfterViewInit {
   private galleryService = inject(Gallery);
 
   readonly lightboxItem = signal<GalleryItem | null>(null);
@@ -51,6 +51,10 @@ export class Portfolio {
 
   get items(): GalleryItem[] {
     return this.galleryService.filteredItems;
+  }
+
+  ngAfterViewInit(): void {
+    if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   setCategory(cat: GalleryCategory): void {

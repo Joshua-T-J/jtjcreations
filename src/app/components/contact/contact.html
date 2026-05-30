@@ -49,24 +49,24 @@
         <!-- Form -->
         <div class="form-wrap">
             @if (!submitted()) {
-            <form (ngSubmit)="submit()" #contactForm="ngForm">
+            <form (ngSubmit)="submit()" [formGroup]="contactForm">
                 <div class="f-row">
                     <div class="fg">
                         <label>Full Name *</label>
-                        <input type="text" [(ngModel)]="form.name" name="name" placeholder="Your name" required>
+                        <input type="text" formControlName="name" placeholder="Your name" required>
                     </div>
                     <div class="fg">
                         <label>Mobile No *</label>
-                        <input type="tel" [(ngModel)]="form.phone" name="phone" placeholder="+91 XXXXX XXXXX" required>
+                        <input type="tel" formControlName="phone" placeholder="+91 XXXXX XXXXX" required>
                     </div>
                 </div>
                 <div class="fg">
                     <label>Email Address *</label>
-                    <input type="email" [(ngModel)]="form.email" name="email" placeholder="your&#64;email.com" required>
+                    <input type="email" formControlName="email" placeholder="your&#64;email.com" required>
                 </div>
                 <div class="fg">
-                    <label>Service Required</label>
-                    <select [(ngModel)]="form.service" name="service">
+                    <label>Service Required *</label>
+                    <select formControlName="service" name="service" required>
                         <option value="">— Select a Service —</option>
                         @for (svc of services; track svc) {
                         <option [value]="svc">{{ svc }}</option>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="fg">
                     <label>Your Message</label>
-                    <textarea [(ngModel)]="form.message" name="message"
+                    <textarea formControlName="message" name="message"
                         placeholder="Tell us about your event, date, location, and special requirements..."></textarea>
                 </div>
                 <button type="submit" class="btn-send">Send Message →</button>

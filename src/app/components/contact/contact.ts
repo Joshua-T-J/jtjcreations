@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 interface ContactForm {
   name: string;
@@ -11,7 +11,7 @@ interface ContactForm {
 
 @Component({
   selector: 'app-contact',
-  imports: [FormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
 })
@@ -25,6 +25,8 @@ export class Contact {
     service: '',
     message: '',
   };
+  private formBuilder: FormBuilder = inject(FormBuilder);
+  readonly contactForm = this.formBuilder.group(this.form);
 
   readonly services = [
     'Book an Event',
@@ -65,8 +67,8 @@ export class Contact {
   ];
 
   submit(): void {
-    if (!this.form.name || !this.form.phone || !this.form.email) {
-      alert('Please fill in all required fields.');
+    if (this.contactForm.invalid) {
+      this.contactForm.markAllAsTouched();
       return;
     }
     if (!/\S+@\S+\.\S+/.test(this.form.email)) {

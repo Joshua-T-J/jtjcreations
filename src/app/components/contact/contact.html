@@ -54,15 +54,24 @@
                     <div class="fg">
                         <label>Full Name *</label>
                         <input type="text" formControlName="name" placeholder="Your name" required>
+                        @if (contactForm.controls.name.touched && contactForm.controls.name.invalid) {
+                        <span class="f-error">Name is required.</span>
+                        }
                     </div>
                     <div class="fg">
                         <label>Mobile No *</label>
                         <input type="tel" formControlName="phone" placeholder="+91 XXXXX XXXXX" required>
+                        @if (contactForm.controls.phone.touched && contactForm.controls.phone.invalid) {
+                        <span class="f-error">Please enter a valid phone number.</span>
+                        }
                     </div>
                 </div>
                 <div class="fg">
                     <label>Email Address *</label>
                     <input type="email" formControlName="email" placeholder="your&#64;email.com" required>
+                    @if (contactForm.controls.email.touched && contactForm.controls.email.invalid) {
+                    <span class="f-error">Please enter a valid email address.</span>
+                    }
                 </div>
                 <div class="fg">
                     <label>Service Required *</label>
@@ -72,6 +81,9 @@
                         <option [value]="svc">{{ svc }}</option>
                         }
                     </select>
+                    @if (contactForm.controls.service.touched && contactForm.controls.service.invalid) {
+                    <span class="f-error">Please select a service.</span>
+                    }
                 </div>
                 <div class="fg">
                     <label>Your Message</label>

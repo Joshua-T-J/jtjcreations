@@ -1,13 +1,33 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
-interface ContactForm {
+interface ContactFormData {
   name: string;
   phone: string;
   email: string;
   service: string;
   message: string;
 }
+
+interface ContactFormGroup extends FormGroup {
+  value: ContactFormData;
+  controls: {
+    name: FormControl<string>;
+    phone: FormControl<string>;
+    email: FormControl<string>;
+    service: FormControl<string>;
+    message: FormControl<string>;
+  };
+}
+const phoneRegex = /^\d{6,12}$/;
+const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,4}$/;
 
 @Component({
   selector: 'app-contact',
@@ -18,7 +38,7 @@ interface ContactForm {
 export class Contact {
   readonly submitted = signal(false);
 
-  form: ContactForm = {
+  form: ContactFormData = {
     name: '',
     phone: '',
     email: '',
@@ -26,7 +46,13 @@ export class Contact {
     message: '',
   };
   private formBuilder: FormBuilder = inject(FormBuilder);
-  readonly contactForm = this.formBuilder.group(this.form);
+  readonly contactForm = this.formBuilder.group({
+    name: ['', Validators.required],
+    phone: ['', Validators.required, Validators.pattern(phoneRegex)],
+    email: ['', [Validators.required, Validators.email, Validators.pattern(emailRegex)]],
+    service: ['', Validators.required],
+    message: ['', Validators.required],
+  }) as ContactFormGroup;
 
   readonly services = [
     'Book an Event',
@@ -69,10 +95,6 @@ export class Contact {
   submit(): void {
     if (this.contactForm.invalid) {
       this.contactForm.markAllAsTouched();
-      return;
-    }
-    if (!/\S+@\S+\.\S+/.test(this.form.email)) {
-      alert('Please enter a valid email address.');
       return;
     }
     this.submitted.set(true);

@@ -116,6 +116,10 @@
 }
 
 /* Form */
+.form-wrap {
+    align-self: center;
+}
+
 .fg {
     margin-bottom: 18px;
 }
@@ -216,6 +220,12 @@
     font-size: 0.84rem;
     color: var(--text-muted);
     margin-top: 10px;
+}
+
+.f-error {
+    font-size: 0.82rem;
+    color: var(--error);
+    margin-top: 5px;
 }
 
 /* Responsive */

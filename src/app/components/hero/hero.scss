@@ -168,16 +168,63 @@
     z-index: 3;
 }
 
+// .h-dot {
+//     width: 22px;
+//     height: 2px;
+//     background: rgba(240, 235, 224, 0.25);
+//     cursor: pointer;
+//     transition: all 0.35s;
+//     &.active {
+//         background: var(--gold);
+//         width: 44px;
+//     }
+// }
 .h-dot {
-    width: 22px;
-    height: 2px;
+    width: 6px;
+    height: 6px;
     background: rgba(240, 235, 224, 0.25);
+    transform: rotate(45deg);
+    position: relative;
     cursor: pointer;
-    transition: all 0.35s;
+    transition: background 0.3s ease;
+    margin-inline: 12px;
+
+    .ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 34px;
+        height: 34px;
+        transform: translate(-50%, -50%) rotate(-135deg);
+        pointer-events: none;
+
+        circle {
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 1;
+            /* circle drawing animation */
+            stroke-dasharray: 94;
+            /* circumference */
+            stroke-dashoffset: 94;
+            transition: stroke-dashoffset .6s ease-out, opacity 0.25s ease;
+            opacity: 0;
+        }
+    }
+
+    &:hover .ring circle,
+    &.active .ring circle {
+        stroke-dashoffset: 0;
+        opacity: .65;
+    }
+
+    &:not(:hover):not(.active) .ring circle {
+        stroke-dashoffset: 94;
+        opacity: 0;
+    }
 
     &.active {
         background: var(--gold);
-        width: 44px;
+        opacity: .65;
     }
 }
 

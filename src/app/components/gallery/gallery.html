@@ -7,7 +7,8 @@
     </div>
 
     <div class="masonry">
-        @for (item of items; track item.id) {
+        @for (item of homeItems(); track item.id) {
+        @defer (on viewport) {
         <div class="g-item" (click)="openLightbox(item)">
             <img [src]="item.src" [alt]="item.title" loading="lazy">
             <div class="g-ov">
@@ -15,6 +16,18 @@
                 <span class="g-cat">{{ item.category }}</span>
             </div>
         </div>
+        }@placeholder {
+        <div class="skeleton-card">
+            <div class="skeleton-image skeleton-shimmer"></div>
+
+            <div class="skeleton-content">
+                <div class="skeleton-title skeleton-shimmer"></div>
+                <div class="skeleton-text skeleton-shimmer"></div>
+                <div class="skeleton-text short skeleton-shimmer"></div>
+                <div class="skeleton-button skeleton-shimmer"></div>
+            </div>
+        </div>
+        }
         }
     </div>
 

@@ -1,8 +1,9 @@
 import { Component, ElementRef, QueryList, viewChildren } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-about',
-  imports: [],
+  imports: [NgOptimizedImage],
   templateUrl: './about.html',
   styleUrl: './about.scss',
 })

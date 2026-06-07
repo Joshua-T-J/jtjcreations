@@ -17,8 +17,6 @@ export class Gallery {
     return cat === 'all' ? this.allItems() : this.allItems().filter((i) => i.category === cat);
   });
 
-  readonly getHomeItems = computed(() => this.allItems().slice(0, 6));
-
   setCategory(cat: GalleryCategory): void {
     this._activeCategory.set(cat);
   }

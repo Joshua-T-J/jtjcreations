@@ -42,6 +42,14 @@ html {
   --footer-bg: #0d0d0d;
   --toggle-track: #2a2a2a;
   --toggle-knob: #f0ebe0;
+  --skeleton-bg: #1a1a1a;
+  --skeleton-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --skeleton-gradient: linear-gradient(to right,
+      #1a1a1a 0%,
+      #2a2a2a 20%,
+      #1a1a1a 40%,
+      #1a1a1a 100%);
+  --skeleton-content-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 /* ── LIGHT THEME ── */
@@ -61,6 +69,13 @@ html {
   --footer-bg: #17130e;
   --toggle-track: #ddd7c9;
   --toggle-knob: #1a1612;
+  --skeleton-bg: #dfd9cb;
+  --skeleton-gradient: linear-gradient(to right,
+      #dfd9cb 0%,
+      #e8e2d4 20%,
+      #dfd9cb 40%,
+      #dfd9cb 100%);
+  --skeleton-content-gradient: linear-gradient(to top, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 /* ── Base ── */
@@ -148,4 +163,83 @@ body {
   body {
     cursor: none;
   }
+}
+
+/** Skeleton Loader */
+/* Skeleton Cards */
+.skeleton-card {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  height: 450px;
+  background-color: var(--skeleton-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: var(--skeleton-shadow);
+}
+
+/* Full background image placeholder */
+.skeleton-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Container for the text at the bottom to match the 'Delight' overlay */
+.skeleton-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 30px;
+  box-sizing: border-box;
+  /* Optional: Add a dark gradient at the bottom to make text skeletons pop */
+  background: var(--skeleton-content-gradient);
+}
+
+/* Specific text line placeholders */
+.skeleton-title {
+  width: 70%;
+  height: 60px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.skeleton-text {
+  width: 90%;
+  height: 12px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.skeleton-text.short {
+  width: 50%;
+  margin-bottom: 24px;
+}
+
+.skeleton-button {
+  width: 80px;
+  height: 12px;
+  border-radius: 4px;
+}
+
+/* The Shimmer Animation Effect */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: var(--skeleton-bg);
+  background-image: var(--skeleton-gradient);
+  background-repeat: no-repeat;
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear forwards;
 }

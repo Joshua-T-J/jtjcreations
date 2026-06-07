@@ -14,9 +14,9 @@ interface Slide {
 })
 export class Hero {
   readonly slides: Slide[] = [
-    { bg: 'https://jtjcreations.netlify.app/img/slider1.jpg', label: 'Wedding Photography' },
-    { bg: 'https://jtjcreations.netlify.app/img/slider2.JPG', label: 'Event Coverage' },
-    { bg: 'https://jtjcreations.netlify.app/img/slider5.jpg', label: 'Portrait Sessions' },
+    { bg: 'images/slider1.jpg', label: 'Wedding Photography' },
+    { bg: 'images/slider2.jpg', label: 'Event Coverage' },
+    { bg: 'images/slider5.jpg', label: 'Portrait Sessions' },
   ];
 
   readonly currentSlide = signal(0);

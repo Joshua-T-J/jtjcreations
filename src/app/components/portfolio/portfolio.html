@@ -9,17 +9,18 @@
                 <span class="bc-sep">→</span>
                 <span>Portfolio</span>
             </div>
-            <div class="ph-label">Our Creative Work</div>
+            <div class="ph-label">{{ heroHeader() }}</div>
             <h1 class="ph-title">Full <em>Portfolio</em></h1>
             <p class="ph-sub">
-                Every frame tells a story. Browse through our complete collection of
-                weddings, events, portraits, and nature photography.
+                {{ heroDescription() }}
             </p>
         </div>
         <div class="ph-stats">
-            <div class="ph-stat"><span class="ph-stat-n">18+</span><span class="ph-stat-l">Gallery Pieces</span></div>
-            <div class="ph-stat"><span class="ph-stat-n">300+</span><span class="ph-stat-l">Events Shot</span></div>
-            <div class="ph-stat"><span class="ph-stat-n">5+</span><span class="ph-stat-l">Years Active</span></div>
+            @if (heroStats()) {
+            <div class="ph-stat"><span class="ph-stat-n">{{ heroStats()?.GalleryPieces }}+</span><span class="ph-stat-l">Gallery Pieces</span></div>
+            <div class="ph-stat"><span class="ph-stat-n">{{ heroStats()?.Shots }}+</span><span class="ph-stat-l">Events Shot</span></div>
+            <div class="ph-stat"><span class="ph-stat-n">{{ heroStats()?.Years }}+</span><span class="ph-stat-l">Years Active</span></div>
+            }
         </div>
     </div>
 
@@ -29,10 +30,10 @@
             <div class="filter-left">
                 <span class="filter-label">Filter by:</span>
                 <div class="filter-btns">
-                    @for (cat of categories; track cat.key) {
+                    @for (cat of categories(); track cat.key) {
                     <button
                         class="f-btn"
-                        [class.active]="activeCategory === cat.key"
+                        [class.active]="activeCategory() === cat.key"
                         (click)="setCategory(cat.key)">
                         {{ cat.label }}
                         <span class="f-count">{{ cat.count }}</span>
@@ -41,7 +42,7 @@
                 </div>
             </div>
             <div class="filter-right">
-                <span class="item-count">{{ items.length }} photos</span>
+                <span class="item-count">{{ galleryItems().length }} photos</span>
             </div>
         </div>
     </div>
@@ -49,7 +50,8 @@
     <!-- Gallery Grid -->
     <div class="gallery-section">
         <div class="masonry-grid" id="portfolioGrid">
-            @for (item of items; track trackById($index, item)) {
+            @for (item of galleryItems(); track trackById($index, item)) {
+            @defer (on viewport) {
             <div
                 class="g-item"
                 [attr.data-cat]="item.category"
@@ -62,14 +64,26 @@
                         @if (item.description) {
                         <span class="g-desc">{{ item.description }}</span>
                         }
-                        <span class="g-zoom">⊕ View</span>
+                        <span class="g-zoom"><i class="bi bi-eye"></i> View</span>
                     </div>
                 </div>
             </div>
+            }@placeholder {
+            <div class="skeleton-card">
+                <div class="skeleton-image skeleton-shimmer"></div>
+
+                <div class="skeleton-content">
+                    <div class="skeleton-title skeleton-shimmer"></div>
+                    <div class="skeleton-text skeleton-shimmer"></div>
+                    <div class="skeleton-text short skeleton-shimmer"></div>
+                    <div class="skeleton-button skeleton-shimmer"></div>
+                </div>
+            </div>
+            }
             }
         </div>
 
-        @if (items.length === 0) {
+        @if (galleryItems().length === 0) {
         <div class="empty-state">
             <span class="empty-icon">📷</span>
             <p>No photos in this category yet.</p>
@@ -106,7 +120,7 @@
             <p class="lb-desc">{{ lightboxItem()!.description }}</p>
             }
             <span class="lb-counter">
-                {{ lightboxIndex() + 1 }} / {{ items.length }}
+                {{ lightboxIndex() + 1 }} / {{ galleryItems().length }}
             </span>
         </div>
     </div>

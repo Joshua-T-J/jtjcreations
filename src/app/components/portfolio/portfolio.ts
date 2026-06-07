@@ -1,13 +1,34 @@
-import { AfterViewInit, Component, inject, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { GalleryItem, GalleryCategory } from '../../shared/models/gallery';
 import { Gallery } from '../../shared/services/gallery';
 import { RouterLink } from '@angular/router';
+import { Contentful } from '../../shared/services/contentful';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
+import { AssetFile, Entry } from 'contentful';
 
 interface CategoryOption {
   key: GalleryCategory;
   label: string;
   count: number;
 }
+type GalleryHeroData = {
+  description: string;
+  header: string;
+  heroData: {
+    Shots: number;
+    Years: number;
+    GalleryPieces: number;
+  };
+};
 
 @Component({
   selector: 'app-portfolio',
@@ -15,42 +36,52 @@ interface CategoryOption {
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.scss',
 })
-export class Portfolio implements AfterViewInit {
+export class Portfolio implements AfterViewInit, OnInit {
   private galleryService = inject(Gallery);
+  private contentfulService = inject(Contentful);
+  private destroyRef = inject(DestroyRef);
 
   readonly lightboxItem = signal<GalleryItem | null>(null);
   readonly lightboxIndex = signal<number>(0);
+  readonly heroData = signal<GalleryHeroData | null>(null);
 
-  readonly categories: CategoryOption[] = [
-    { key: 'all', label: 'All Work', count: this.galleryService.allItems.length },
-    {
-      key: 'wedding',
-      label: 'Wedding',
-      count: this.galleryService.allItems.filter((i) => i.category === 'wedding').length,
-    },
-    {
-      key: 'event',
-      label: 'Events',
-      count: this.galleryService.allItems.filter((i) => i.category === 'event').length,
-    },
-    {
-      key: 'nature',
-      label: 'Nature',
-      count: this.galleryService.allItems.filter((i) => i.category === 'nature').length,
-    },
-    {
-      key: 'portrait',
-      label: 'Portraits',
-      count: this.galleryService.allItems.filter((i) => i.category === 'portrait').length,
-    },
-  ];
+  readonly heroDescription = computed(() => this.heroData()?.description || '');
+  readonly heroHeader = computed(() => this.heroData()?.header || '');
+  readonly heroStats = computed(() => this.heroData()?.heroData || null);
+  readonly categories = computed<CategoryOption[]>(() => {
+    const all = this.galleryService.allItems();
+    return [
+      { key: 'all', label: 'All Work', count: all.length },
+      {
+        key: 'wedding',
+        label: 'Wedding',
+        count: all.filter((i) => i.category === 'wedding').length,
+      },
+      {
+        key: 'event',
+        label: 'Events',
+        count: all.filter((i) => i.category === 'event').length,
+      },
+      {
+        key: 'nature',
+        label: 'Nature',
+        count: all.filter((i) => i.category === 'nature').length,
+      },
+      {
+        key: 'portrait',
+        label: 'Portraits',
+        count: all.filter((i) => i.category === 'portrait').length,
+      },
+    ];
+  });
 
-  get activeCategory(): GalleryCategory {
-    return this.galleryService.activeCategory();
-  }
+  readonly activeCategory = computed(() => this.galleryService.activeCategory());
 
-  get items(): GalleryItem[] {
-    return this.galleryService.filteredItems;
+  readonly galleryItems = computed(() => this.galleryService.filteredItems());
+
+  ngOnInit(): void {
+    this.getProtfolioData();
+    this.getGalleryHeroData();
   }
 
   ngAfterViewInit(): void {
@@ -63,7 +94,7 @@ export class Portfolio implements AfterViewInit {
 
   openLightbox(item: GalleryItem): void {
     this.lightboxItem.set(item);
-    this.lightboxIndex.set(this.items.indexOf(item));
+    this.lightboxIndex.set(this.galleryItems().indexOf(item));
     document.body.style.overflow = 'hidden';
   }
 
@@ -73,17 +104,17 @@ export class Portfolio implements AfterViewInit {
   }
 
   prevItem(): void {
-    const items = this.items;
-    const idx = (this.lightboxIndex() - 1 + items.length) % items.length;
+    const items = this.galleryItems;
+    const idx = (this.lightboxIndex() - 1 + items().length) % items().length;
     this.lightboxIndex.set(idx);
-    this.lightboxItem.set(items[idx]);
+    this.lightboxItem.set(items()[idx]);
   }
 
   nextItem(): void {
-    const items = this.items;
-    const idx = (this.lightboxIndex() + 1) % items.length;
+    const items = this.galleryItems;
+    const idx = (this.lightboxIndex() + 1) % items().length;
     this.lightboxIndex.set(idx);
-    this.lightboxItem.set(items[idx]);
+    this.lightboxItem.set(items()[idx]);
   }
 
   onKeydown(event: KeyboardEvent): void {
@@ -95,5 +126,38 @@ export class Portfolio implements AfterViewInit {
 
   trackById(_: number, item: GalleryItem): number {
     return item.id;
+  }
+
+  getProtfolioData() {
+    this.contentfulService
+      .getGalleryItems()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (res: Entry<any>[]) => {
+          const items: GalleryItem[] = res.map((entry) => {
+            let imageUrl = '';
+            const imageField = entry.fields?.['image'] as Entry<any> | undefined;
+            const file = imageField?.fields?.['file'] as AssetFile | undefined;
+            if (file?.url) {
+              imageUrl = file.url;
+            }
+            return { ...entry.fields, src: imageUrl } as GalleryItem;
+          });
+          this.galleryService.setGalleryItems(items);
+        },
+      });
+  }
+
+  getGalleryHeroData() {
+    this.contentfulService
+      .getGalleryHeroData()
+      .pipe(
+        map((res: Entry<any>[]) => (res[0]?.fields as GalleryHeroData) || null),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: (heroData) => this.heroData.set(heroData),
+        error: () => this.heroData.set(null),
+      });
   }
 }

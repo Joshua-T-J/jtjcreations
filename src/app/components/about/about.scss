@@ -33,6 +33,7 @@
     z-index: 1;
     filter: grayscale(12%);
     transition: filter 0.5s;
+    height: 90dvh;
 
     &:hover {
         filter: grayscale(0%);
